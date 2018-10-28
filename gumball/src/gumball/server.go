@@ -19,8 +19,10 @@ import (
 		Reference: https://golang.org/pkg/database/sql/
 */
 
-//var mysql_connect = "root:cmpe281@tcp(127.0.0.1:3306)/cmpe281"
-var mysql_connect = "root:cmpe281@tcp(mysql:3306)/cmpe281"
+var mysql_connect = "root:cmpe281@tcp(127.0.0.1:3306)/cmpe281"
+
+//var mysql_connect = "root:cmpe281@tcp(mysql:3306)/cmpe281"
+//var mysql_connect = "cmpe281:cmpe281@tcp(mysql:3306)/cmpe281"
 
 // NewServer configures and returns a Server.
 func NewServer() *negroni.Negroni {
@@ -178,7 +180,9 @@ func gumballUpdateHandler(formatter *render.Render) http.HandlerFunc {
 // API Create New Gumball Order
 func gumballNewOrderHandler(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
-		uuid := uuid.NewV4()
+		//uuid := uuid.NewV4()
+		uuid, err := uuid.NewV4() // hnote - I changed this one based on https://github.com/hlandau/acme/issues/293
+		print(err)                // hnote - this is just for avoiding the go build error
 		var ord = order{
 			Id:          uuid.String(),
 			OrderStatus: "Order Placed",

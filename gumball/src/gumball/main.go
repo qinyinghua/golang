@@ -7,7 +7,8 @@ import (
 func main() {
 
 	port := os.Getenv("PORT")
-	if len(port) == 0 {
+	print(port)
+	if len(port) < 4 {
 		port = "3000"
 	}
 
